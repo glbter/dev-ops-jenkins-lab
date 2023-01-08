@@ -1,1 +1,28 @@
 # TODO: Your code
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+       - name: frontend
+         image: nicknema13/express-fe:latest
+         imagePullPolicy: Always
+         env:
+          - name: PORT
+            value: "9000"
+          - name: BASE_URL
+            value: "http://localhost:8080/api"
+         ports:
+          - containerPort: 9000
+            name: http
